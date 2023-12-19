@@ -7,7 +7,7 @@ const Payment = require('../Models/paymentModel');
 
 const create_payment_intent = asyncHandler(async (req,res) => {
     try {
-        const { amount, userId } = req.body; // Assume you get the amount and user ID from the client
+        const { amount } = req.body; // Assume you get the amount and user ID from the client
 
         // Create a PaymentIntent with Stripe
         const paymentIntent = await stripe.paymentIntents.create({
@@ -21,8 +21,7 @@ const create_payment_intent = asyncHandler(async (req,res) => {
             amount,
             currency: 'usd',
             status: 'Pending', // Initially set as Pending
-            transactionId: paymentIntent.id,
-            tendorId
+            transactionId: paymentIntent.id
         });
 
         await newPayment.save();
